@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { content } from '../data/content';
+import { motion } from 'framer-motion';
 import { FiCopy, FiCheck } from 'react-icons/fi'; // Pastikan react-icons sudah terinstall
+import qrisImg from '../assets/images/qris.png';  
 
 const Gift = () => {
   const [copiedId, setCopiedId] = useState(null);
@@ -15,6 +17,20 @@ const Gift = () => {
     }, 2000);
   };
 
+  const handleDownQris = () => {
+    const isReady = window.confirm("Apakah Anda ingin mendownload gambar QRIS ini untuk melakukan pembayaran?");
+    
+    if (isReady) {
+      // Proses download jika klik 'Ya'
+      const link = document.createElement('a');
+      link.href = qrisImg;
+      link.download = 'QRIS-Wedding-Payment.png'; // Nama file saat didownload
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    // Jika klik 'Tidak', maka otomatis pop-up tertutup dan kembali ke scroll
+  }
   return (
     <section className="py-16 px-6 bg-slate-50 text-center">
       <div className="max-w-md mx-auto">
@@ -68,17 +84,30 @@ const Gift = () => {
           ))}
         </div>
 
-        {/* QRIS Section (Jika ada) */}
-        {content.gift.qris && (
-          <div className="mt-12 p-4 bg-white rounded-2xl shadow-inner border border-slate-100">
-            <p className="text-sm font-medium mb-4 text-slate-500 underline underline-offset-4">Scan QRIS</p>
+        {/* Bagian QRIS */}
+        <div className="mt-12 p-6 bg-white rounded-3xl shadow-md inline-block">
+          <p className="mb-4 font-semibold text-slate-700">Scan QRIS</p>
+          
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleDownQris}
+            className="cursor-pointer relative group"
+          >
             <img 
-              src={content.gift.qris} 
-              alt="QRIS Code" 
-              className="mx-auto w-48 h-48 object-contain"
+              src={qrisImg} 
+              alt="QRIS" 
+              className="w-48 h-48 mx-auto rounded-lg border-2 border-dashed border-amber-200 p-2"
             />
-          </div>
-        )}
+            
+            {/* Overlay petunjuk saat di-hover */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-lg transition-opacity">
+              <span className="text-white text-xs font-bold">Klik untuk Download</span>
+            </div>
+          </motion.div>
+          
+          <p className="mt-4 text-xs text-slate-400 italic">Klik gambar untuk simpan ke galeri</p>
+        </div>
       </div>
     </section>
   );
