@@ -14,8 +14,8 @@ const Couple = () => {
           whileInView={{ opacity: 1 }}
           className="mb-16 italic text-slate-500"
         >
-          <p className="text-lg">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..."</p>
-          <p className="mt-2 font-semibold text-sm">(QS. Ar-Rum: 21)</p>
+          <p className="text-lg">"Dan mereka keduanya akan menjadi satu daging, jadi mereka tidak lagi menjadi dua orang, melainkan satu.Oleh karena itu apa yang telah dipersatukan Tuhan, janganlah manusia memisahkan."</p>
+          <p className="mt-2 font-semibold text-sm">(Injil Markus 10:8-9)</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">

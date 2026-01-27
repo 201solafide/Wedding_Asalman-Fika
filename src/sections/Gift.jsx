@@ -38,7 +38,11 @@ const Gift = () => {
                 </div>
                 {/* Placeholder Logo (Bisa diganti image nantinya) */}
                 <div className="bg-slate-100 px-3 py-1 rounded text-xs font-semibold text-slate-400">
-                  CARD
+                  {/* CARD */}
+                  <img 
+                    src={acc.logo}
+                    className="w-20 h-20 object-cover transition-transform duration-500 group-hover:scale-10"
+                    />
                 </div>
               </div>
 

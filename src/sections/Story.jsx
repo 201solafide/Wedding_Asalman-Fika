@@ -2,7 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { content } from '../data/content';
 
+import storydummy1 from '../assets/images/storydummy1.jpg';
+import storydummy2 from '../assets/images/storydummy2.jpg';
+import storydummy3 from '../assets/images/storydummy3.jpg';
+
+
 const Story = () => {
+
+  // mapping sederhana
+  const LocalImages = [storydummy1, storydummy2, storydummy3];
+
   return (
     <section className="py-20 px-6 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto">
@@ -27,7 +36,8 @@ const Story = () => {
             >
               {/* Image Background */}
               <img 
-                src={item.image} 
+                src={item.image} // digunakan apabila datanya dari content.js
+                // src={LocalImages[index]} 
                 alt={item.title} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />

@@ -1,6 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { content } from '../data/content';
+import { FaInstagram } from "react-icons/fa";
+import { DiGithubBadge } from "react-icons/di";
+import { CiLinkedin } from "react-icons/ci";
+
 
 const Footer = () => {
   return (
@@ -15,7 +19,9 @@ const Footer = () => {
           transition={{ duration: 1 }}
         >
           <p className="text-sm tracking-[0.3em] uppercase mb-8 text-amber-200/80">Terima Kasih</p>
-          
+          <p className="text-xs tracking-widest text-slate-500 uppercase">
+            Created with ❤️ for our special day
+          </p>
           <h2 className="text-4xl md:text-5xl font-serif mb-6 italic">
             {content.couple.groom.name.split(' ')[0]} & {content.couple.bride.name.split(' ')[0]}
           </h2>
@@ -28,7 +34,34 @@ const Footer = () => {
           <div className="h-[1px] w-20 bg-amber-200/30 mx-auto mb-8"></div>
 
           <p className="text-xs tracking-widest text-slate-500 uppercase">
-            Created with ❤️ for our special day
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-center"
+            >
+              {/* <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-amber-100 shadow-xl mb-6">
+                <img src={content.couple.groom.image} alt="Groom" className="w-full h-full object-cover" />
+              </div> */}
+              <h3 className="text-3xl font-serif text-slate-800">Contact Us</h3>
+
+              {/* Container for the row */}
+              <div className="flex flex-row items-center gap-4 mt-4">
+                
+                <a href="https://github.com/201solafide" target="_blank" rel="noreferrer" className="hover:opacity-75 transition-opacity">
+                  <DiGithubBadge size={40} color="black" />
+                </a>
+
+                <a href="https://www.instagram.com/solafide.2/" target="_blank" rel="noreferrer" className="hover:opacity-75 transition-opacity">
+                  <FaInstagram size={30} color="#405de6" />
+                </a>
+
+                <a href="https://www.linkedin.com/in/solafide-zamili/" target="_blank" rel="noreferrer" className="hover:opacity-75 transition-opacity">
+                  <CiLinkedin size={35} color="#0A66C2" /> 
+                </a>
+                
+              </div>
+            </motion.div>
           </p>
         </motion.div>
       </div>
