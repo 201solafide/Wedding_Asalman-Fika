@@ -50,7 +50,7 @@ const RSVP = () => {
     } catch (error) {
       console.error('Error!', error.message);
       setStatus('idle');
-      alert("Waduh, ada kendala saat mengirim data. Coba lagi ya, Sir.");
+      alert("Mohon maaf, ada kendala saat mengirim data. mohon dicoba kembali.");
     }
   };
   return (
@@ -63,7 +63,7 @@ const RSVP = () => {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             className="bg-green-100 text-green-700 p-8 rounded-3xl border border-green-200"
           >
-            <p className="text-xl font-bold italic">Terima kasih, Sir! Data sudah tersimpan di database kami. ✨</p>
+            <p className="text-xl font-bold italic">Terima kasih atas konfirmasi anda. Data sudah tersimpan di database kami. ✨</p>
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className="bg-[#fcf9f5] p-8 rounded-3xl shadow-lg border border-amber-100 text-left space-y-6">

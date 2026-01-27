@@ -75,16 +75,16 @@ export const content = {
       {
         id: 1,
         bank: "BCA",
-        accountNumber: "1234567890",
-        holderName: "Romeo Setiawan",
+        accountNumber: "5455097492",
+        holderName: "Asalman Zamili",
         // logo: "bca-logo" // Nanti kita mapping ke Icon
         logo: bcaImage // Nanti kita mapping ke Icon
       },
       {
         id: 2,
         bank: "DANA",
-        accountNumber: "08123456789",
-        holderName: "Juliet Amalia",
+        accountNumber: "085370974515",
+        holderName: "Asalman Zamili",
         logo: danaImage
       }
     ],
