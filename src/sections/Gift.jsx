@@ -53,13 +53,17 @@ const Gift = () => {
                   <p className="text-sm text-slate-500 uppercase">{acc.holderName}</p>
                 </div>
                 {/* Placeholder Logo (Bisa diganti image nantinya) */}
-                <div className="bg-slate-100 px-3 py-1 rounded text-xs font-semibold text-slate-400">
-                  {/* CARD */}
-                  <img 
+                <div className="w-32 sm:w-36 md:w-40 aspect-[3/2]
+                                bg-white rounded-md
+                                flex items-center justify-center">
+
+                  <img
                     src={acc.logo}
-                    className="w-20 h-20 object-cover transition-transform duration-500 group-hover:scale-10"
-                    />
+                    alt="Logo Bank"
+                    className="w-full h-full object-contain p-3"
+                  />
                 </div>
+
               </div>
 
               <div className="flex items-center justify-between bg-transparent p-3 rounded-xl border border-dashed border-slate-300">

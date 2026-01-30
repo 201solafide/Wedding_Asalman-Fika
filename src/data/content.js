@@ -2,6 +2,7 @@
 import { image } from 'framer-motion/client';
 import danaImage from '../assets/images/qris.png'; // Pastikan ada dummy image dulu
 import bcaImage from '../assets/images/BCA.png';
+import gopayImage from '../assets/images/GOPAY.jpg'
 import storyDummy1 from '../assets/images/storydummy1.jpg';
 import storyDummy2 from '../assets/images/storydummy2.jpg';
 import storyDummy3 from '../assets/images/storydummy3.jpg';
@@ -27,19 +28,19 @@ export const content = {
   events: [
     {
       id: 1,
-      title: "Pemberkatan Nikah",
+      title: "Falowa (Pesta Pernikahan)",
       date: "Kamis, 19 Maret 2026",
-      time: "08:00 - 10:00 WIB",
-      location: "Gedung Gereja BNKP",
+      time: "10:00 WIB - Selesai",
+      location: "Rumah Mempelain Perempuan",
       address: "Jl. Hiliduha, Kecamatan telukdalam, Telukdalam",
       mapsUrl: "https://maps.app.goo.gl/CUpYfT8exusJSxTaA" // Ganti dengan link asli
     },
     {
       id: 2,
-      title: "Resepsi",
+      title: "Pemberkatan & Resepsi Pernikahan",
       date: "Minggu, 22 Maret 2026",
-      time: "11:00 - 14:00 WIB",
-      location: "Rumah mempelain Laki-laki",
+      time: "13:00 WIB - Selesai",
+      location: "Rumah Mempelai Laki-laki",
       address: "Jl. hilizalootano, Kecamatan mazino, Nias Selatan",
       mapsUrl: "https://maps.app.goo.gl/NMsGieMtBznQ1zq56" // Ganti dengan link asli
     }
@@ -82,10 +83,10 @@ export const content = {
       },
       {
         id: 2,
-        bank: "DANA",
+        bank: "GOPAY",
         accountNumber: "085370974515",
         holderName: "Asalman Zamili",
-        logo: danaImage
+        logo: gopayImage
       }
     ],
     qris: danaImage // Opsional
