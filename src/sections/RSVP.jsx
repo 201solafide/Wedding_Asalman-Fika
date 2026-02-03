@@ -7,7 +7,7 @@ const RSVP = () => {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
   
-  const scriptURL = "https://script.google.com/macros/s/AKfycbyWJvG8A33COpEuaAA5dmDWAm9zjgaUXWNy7ucPqKhOYvJJiTKzLGf8XA-6s5BoER_6oQ/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxDBOc44Fj69OCNhGKilzaozx1hlkmSXIJKcmdaJ_CSHrdrLkz7tMWLyJM35C1BxfYM1A/exec";
 
   // Fungsi untuk mengambil data dari Google Sheets
   const fetchComments = async () => {
@@ -30,32 +30,31 @@ const RSVP = () => {
     e.preventDefault();
     setStatus('loading');
 
-    try {
-      // Gunakan URLSearchParams agar lebih kompatibel dengan Apps Script
-      const formDataBody = new URLSearchParams();
-      formDataBody.append('nama', formData.nama);
-      formDataBody.append('hadir', formData.hadir);
-      formDataBody.append('pesan', formData.pesan);
+    // Buat URL dengan query string (cara paling ampuh untuk Apps Script)
+    const finalURL = `${scriptURL}?nama=${encodeURIComponent(formData.nama)}&hadir=${encodeURIComponent(formData.hadir)}&pesan=${encodeURIComponent(formData.pesan)}`;
 
-      await fetch(scriptURL, {
+    try {
+      // Kita gunakan method GET untuk memicu doPost lewat parameter jika POST bermasalah, 
+      // atau gunakan POST dengan cara di bawah ini:
+      await fetch(finalURL, {
         method: 'POST',
-        mode: 'no-cors', // Menghindari masalah CORS di beberapa browser
-        body: formDataBody
       });
-      
-      // Karena mode 'no-cors' tidak bisa membaca response, 
-      // kita asumsikan sukses jika tidak masuk ke catch.
-      setStatus('success');
-      fetchComments(); // Ambil data terbaru
+
+      // Beri jeda 1 detik agar Google selesai menulis ke sheet sebelum kita ambil data lagi
+      setTimeout(async () => {
+        setStatus('success');
+        await fetchComments(); // Ambil data terbaru
+      }, 1000);
+
       setTimeout(() => {
         setStatus('idle');
         setFormData({ nama: '', hadir: 'Hadir', pesan: '' });
-      }, 3000);
+      }, 4000);
 
     } catch (error) {
-      console.error('Error!', error.message);
+      console.error('Error!', error);
       setStatus('idle');
-      alert("Terjadi kesalahan. Silakan cek koneksi atau coba lagi.");
+      alert("Gagal mengirim pesan. Coba cek URL Script Sir.");
     }
   };
 
