@@ -1,26 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { content } from "../data/content";
 // import { FiMailOpen } from "react-icons/fi";
-import floralTop from "../assets/images/floral-top.png";
-import floralBottom from "../assets/images/floral-bottom.png";
+import floralTopRight from "../assets/images/floral-top-right.png";
+import floralBottomLeft from "../assets/images/floral-bottom-left.png";
 import bgPhoto from "../assets/images/ImageScreen.webp";
+
+import weddingMusic from '../assets/audio/BudiDoremi.mp3';
 
 const WelcomeScreen = ({ onOpen }) => {
   const [guestName, setGuestName] = useState('');
 
+  const audioRef = useRef(null);
+
   useEffect(() => {
+    audioRef.current = new Audio(weddingMusic);
+    audioRef.current.loop = true;
+
     // LOGIKA: Mengambil nama dari URL (contoh: ?to=Budi)
     const params = new URLSearchParams(window.location.search);
     const name = params.get('to'); // Mengambil teks setelah 'to='
     setGuestName(name ? name : 'Tamu Undangan');
-    
-    // if (name) {
-    //   setGuestName(name);
-    // } else {
-    //   setGuestName('Tamu Undangan'); // Default jika tidak ada nama di link
-    // }
+
   }, []);
+
+  const handleBukaUndangan = () => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(err => console.log("Musik tertunda:", err));
+    }
+    onOpen(); // Ini fungsi bawaan Sir untuk pindah ke page Hero
+  };
 
   return (
     // Container Utama: Fixed menutup seluruh layar
@@ -52,7 +61,7 @@ const WelcomeScreen = ({ onOpen }) => {
         initial={{ opacity: 0, x: -50, y: -50 }}
         animate={{ opacity: 0.8, x: 0, y: 0 }}
         transition={{ duration: 1.5 }}
-        src={floralTop} 
+        src={floralTopRight} 
         className="absolute top-0 right-0 w-45 md:w-116 lg:w-90 pointer-events-none z-10" 
         alt="floral-top" 
       />
@@ -62,7 +71,7 @@ const WelcomeScreen = ({ onOpen }) => {
         initial={{ opacity: 0, x: 50, y: 50 }}
         animate={{ opacity: 0.8, x: 0, y: 0 }}
         transition={{ duration: 1.5 }}
-        src={floralBottom} 
+        src={floralBottomLeft} 
         className="absolute bottom-0 left-0 w-72 md:w-126 lg:w-100 pointer-events-none z-10" 
         alt="floral-bottom" 
       />
@@ -80,7 +89,7 @@ const WelcomeScreen = ({ onOpen }) => {
         
         {/* Font Judul Responsif */}
         <h1 className="font-['Great_Vibes'] text-5xl md:text-7xl lg:text-9xl text-amber-700 mb-6 md:mb-10 drop-shadow-sm">
-          Romeo & Juliet
+          Asalman & Fikarni
         </h1>
 
         {/* Kotak Nama Tamu */}
@@ -94,7 +103,7 @@ const WelcomeScreen = ({ onOpen }) => {
         </div>
 
         <button 
-          onClick={onOpen}
+          onClick={handleBukaUndangan}
           className="group relative px-8 py-3 md:px-10 md:py-4 bg-amber-700 text-white rounded-full text-xs md:text-sm tracking-[0.2em] font-bold uppercase transition-all hover:bg-amber-800 hover:shadow-2xl hover:-translate-y-1 active:scale-95 shadow-amber-900/20 shadow-lg"
         >
           Buka Undangan

@@ -25,7 +25,9 @@ const Footer = () => {
           <h2 className="text-4xl md:text-5xl font-serif mb-6 italic">
             {content.couple.groom.name.split(' ')[0]} & {content.couple.bride.name.split(' ')[0]}
           </h2>
-
+          <p className="text-xs tracking-widest text-slate-500 uppercase">
+            Turut Mengundang Kedua keluarga mempelai yang berbahagia
+          </p>
           <p className="text-slate-400 leading-relaxed mb-12 font-light px-4">
             Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir 
             dan memberikan doa restu bagi kami.

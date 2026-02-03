@@ -1,65 +1,94 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { content } from "../data/content";
+import React from 'react';
+import { motion } from 'framer-motion';
+// Pastikan Sir menggunakan 2 file berbeda untuk kiri dan kanan
+import floralLeft from '../assets/images/floral-left.png'; 
+import floralRight from '../assets/images/floral-right.png';
 
 const Hero = () => {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-200">
-      {/* Background Image Placeholder */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
-        style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`, // Sir bisa ganti dengan foto pre-wedding nanti
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#fdfbf7]">
+      
+      {/* --- 1. BACKGROUND TEXTURE (Agar tidak polos) --- */}
+      {/* Kita tambahkan layer dengan opacity sangat rendah untuk kesan kertas elegan/vintage */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0" 
+           style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/paper-fibers.png')` }}>
+      </div>
+
+      {/* --- 2. ORNAMEN SISI KIRI (Dinamis & Tidak Kaku) --- */}
+      <motion.div 
+        // Awalnya di tengah (x: 100% dari posisinya ke arah kanan agar berhimpit di center)
+        initial={{ x: '100%', opacity: 1 }}
+        // Bergerak ke posisi asli di paling kiri
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ 
+          duration: 2, 
+          ease: [0.45, 0, 0.55, 1], // Efek slow-motion yang elegan
+          delay: 0.2 
         }}
+        viewport={{ once: true }} // Agar efek tirai hanya jalan sekali saat dibuka
+        className="absolute left-0 top-0 bottom-0 w-[40%] md:w-[25%] lg:w-[20%] z-30 pointer-events-none"
       >
-        {/* Overlay agar teks mudah dibaca */}
-        <div className="absolute inset-0 bg-black/40"></div>
-      </div>
+        <img 
+          src={floralLeft} 
+          className="w-full h-full object-contain object-left" 
+          alt="floral-left" 
+        />
+      </motion.div>
 
-      {/* Content */}
-      <div className="relative z-10 text-center text-white px-4">
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="uppercase tracking-[0.3em] text-sm mb-4 font-light"
-        >
+      {/* --- 3. ORNAMEN SISI KANAN --- */}
+      {/* --- 3. EFEK TIRAI: ORNAMEN SISI KANAN --- */}
+      <motion.div 
+        // Awalnya di tengah (x: -100% dari posisinya ke arah kiri agar berhimpit di center)
+        initial={{ x: '-100%', opacity: 1 }}
+        // Bergerak ke posisi asli di paling kanan
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ 
+          duration: 2, 
+          ease: [0.45, 0, 0.55, 1],
+          delay: 0.2 
+        }}
+        viewport={{ once: true }}
+        className="absolute right-0 top-0 bottom-0 w-[40%] md:w-[25%] lg:w-[20%] z-30 pointer-events-none"
+      >
+        <img 
+          src={floralRight} 
+          className="w-full h-full object-contain object-right" 
+          alt="floral-right" 
+        />
+      </motion.div>
+
+      {/* --- 4. KONTEN TENGAH (Tema Senada dengan Couple) --- */}
+      <motion.div 
+        className="relative z-20 text-center px-6"
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.5, delay: 1.2 }} // Delay agar teks muncul setelah tirai terbuka sedikit
+      >
+        <p className="font-serif text-amber-700 tracking-[0.4em] uppercase text-[10px] md:text-xs mb-6 opacity-80">
           The Wedding of
-        </motion.p>
+        </p>
+        
+        <h1 className="font-['Great_Vibes'] text-6xl md:text-8xl lg:text-9xl text-slate-800 mb-6 drop-shadow-sm">
+          Salman & Fika
+        </h1>
 
-        <motion.h1 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-6xl md:text-8xl font-serif mb-6"
-        >
-          {content.couple.groom.name} <span className="text-3xl md:text-5xl font-sans">&</span> {content.couple.bride.name}
-        </motion.h1>
+        <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="h-[1px] w-12 bg-amber-600/30"></div>
+          <span className="text-amber-700">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 3.22l-.61-.6a5.5 5.5 0 00-7.78 7.77L10 18.78l8.39-8.4a5.5 5.5 0 00-7.78-7.77l-.61.61z" />
+            </svg>
+          </span>
+          <div className="h-[1px] w-12 bg-amber-600/30"></div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
-        >
-          <div className="h-[1px] w-24 bg-white/60 mx-auto mb-6"></div>
-          <p className="text-xl md:text-2xl font-light tracking-wide">
-            {new Date(content.couple.date).toLocaleDateString('id-ID', { 
-              day: 'numeric', 
-              month: 'long', 
-              year: 'numeric' 
-            })}
-          </p>
-          
-          {/* Scroll Indicator */}
-          <motion.div 
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="mt-20 text-xs uppercase tracking-widest opacity-70"
-          >
-            Scroll Down
-          </motion.div>
-        </motion.div>
-      </div>
+        <p className="font-serif text-slate-500 tracking-[0.2em] md:text-lg uppercase text-sm">
+          19 . 03 . 2026
+        </p>
+      </motion.div>
+
+      {/* Efek Vignette Lembut di pojok layar agar lebih dramatis */}
+      <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(217,119,6,0.05)] pointer-events-none"></div>
     </section>
   );
 };

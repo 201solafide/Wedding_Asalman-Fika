@@ -6,59 +6,87 @@ import storydummy1 from '../assets/images/storydummy1.jpg';
 import storydummy2 from '../assets/images/storydummy2.jpg';
 import storydummy3 from '../assets/images/storydummy3.jpg';
 
+import floralLeft from '../assets/images/floral-left.png'; 
+import floralBottomRight from '../assets/images/floral-bottom-right.png';
 
 const Story = () => {
-
-  // mapping sederhana
-  const LocalImages = [storydummy1, storydummy2, storydummy3];
+  const storyData = content?.stories || [];
 
   return (
-    <section className="py-20 px-6 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative min-h-screen py-24 px-4 bg-[#fdfbf7] overflow-hidden">
+      
+      {/* Background Ornaments */}
+      <img src={floralLeft} className="absolute top-20 left-[-5%] w-64 md:w-96 opacity-[0.20] pointer-events-none" alt="deco" />
+      <img src={floralBottomRight} className="absolute bottom-20 right-[-5%] w-64 md:w-96 opacity-[0.35] pointer-events-none" alt="deco" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-serif text-slate-800 mb-2">Cerita Cinta Kami</h2>
-          <div className="h-[1px] w-24 bg-amber-200 mx-auto mt-4"></div>
+          <h2 className="font-['Great_Vibes'] text-5xl md:text-6xl text-amber-700 mb-4">Cerita Kita</h2>
+          <div className="h-[1px] w-24 bg-amber-600/30 mx-auto"></div>
         </motion.div>
 
-        {/* Grid Kolase Foto */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {content.stories.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.2 }}
-              className="relative group h-[400px] rounded-2xl overflow-hidden shadow-lg cursor-pointer"
-            >
-              {/* Image Background */}
-              <img 
-                src={item.image} // digunakan apabila datanya dari content.js
-                // src={LocalImages[index]} 
-                alt={item.title} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
+        {/* TIMELINE CONTAINER */}
+        <div className="relative">
+          {/* Garis Tengah - Hanya muncul di Desktop (md ke atas) */}
+          <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-[2px] bg-amber-200/50"></div>
+
+          {storyData.map((item, index) => (
+            <div key={item.id} className="relative mb-12 md:mb-20">
               
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80"></div>
-              
-              {/* Text Content */}
-              <div className="absolute bottom-0 p-8 text-white w-full">
-                <span className="text-amber-300 text-xs font-bold tracking-[0.2em] uppercase">{item.date}</span>
-                <h3 className="text-2xl font-serif mt-2 mb-3">{item.title}</h3>
-                <p className="text-sm text-slate-200 line-clamp-3 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {item.description}
-                </p>
+              {/* Desktop View: Grid 2 Kolom */}
+              <div className="flex flex-col md:grid md:grid-cols-2 items-center w-full">
+                
+                {/* SISI KIRI */}
+                <div className={`w-full md:px-12 ${index % 2 === 0 ? 'md:text-right order-2 md:order-1' : 'md:opacity-0 order-2'}`}>
+                  {index % 2 === 0 && (
+                    <CardStory item={item} index={index} />
+                  )}
+                </div>
+
+                {/* DOT TENGAH */}
+                <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-amber-600 rounded-full border-4 border-[#fdfbf7] z-20 shadow-md"></div>
+
+                {/* SISI KANAN */}
+                <div className={`w-full md:px-12 ${index % 2 !== 0 ? 'md:text-left order-2' : 'md:opacity-0 order-2 md:order-1'}`}>
+                  {index % 2 !== 0 && (
+                    <CardStory item={item} index={index} />
+                  )}
+                </div>
+
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
 };
+
+// Sub-Komponen Card agar kode lebih rapi
+const CardStory = ({ item, index }) => (
+  <motion.div 
+    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true }}
+    className="bg-white rounded-3xl overflow-hidden shadow-xl border border-amber-100/50 group ml-8 md:ml-0"
+  >
+    <div className="h-44 md:h-56 overflow-hidden">
+      <img 
+        src={item.image} 
+        alt={item.title} 
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+      />
+    </div>
+    <div className="p-6">
+      <span className="text-amber-700 font-serif text-xs font-bold tracking-[0.2em] uppercase mb-2 block">{item.date}</span>
+      <h3 className="font-serif text-xl md:text-2xl font-bold text-slate-800 mb-2">{item.title}</h3>
+      <p className="text-slate-600 text-sm font-serif italic leading-relaxed">"{item.description}"</p>
+    </div>
+  </motion.div>
+);
 
 export default Story;

@@ -11,14 +11,14 @@ export const content = {
   couple: {
     groom: {
       name: "Asalman Zamili",
-      parent: "Putra dari Bpk. Analis & Ibu Otilia",
+      parent: "Putra dari Bpk. Analis Zamili & Ibu Otilia Halawa",
       social: "@asalmanzamili",
       // image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500" // Foto Dummy
       image: storyDummy1
     },
     bride: {
       name: "Fikarni Duha",
-      parent: "Putri dari Bpk. & Ibu ",
+      parent: "Putri dari Bpk Tahela Duha & Ibu Erina Bago",
       social: "@fikarniduha",
       // image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=500" // Foto Dummy
       image: storyDummy2
@@ -28,12 +28,12 @@ export const content = {
   events: [
     {
       id: 1,
-      title: "Falowa (Pesta Pernikahan)",
+      title: "Falowa (Acara Adat)",
       date: "Kamis, 19 Maret 2026",
       time: "10:00 WIB - Selesai",
       location: "Rumah Mempelain Perempuan",
-      address: "Jl. Hiliduha, Kecamatan telukdalam, Telukdalam",
-      mapsUrl: "https://maps.app.goo.gl/CUpYfT8exusJSxTaA" // Ganti dengan link asli
+      address: "Jl. Bawoza'ua, Telukdalam, Nias Selatan",
+      // mapsUrl: "https://maps.app.goo.gl/CUpYfT8exusJSxTaA" // Ganti dengan link asli
     },
     {
       id: 2,
@@ -71,7 +71,7 @@ export const content = {
   ],
   gift: {
     title: "Wedding Gift",
-    description: "Doa restu Anda merupakan karunia yang sangat berarti bagi kami...",
+    description: "Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan kasih, Anda dapat memberikan tanda kasih melalui kanal di bawah ini:",
     accounts: [
       {
         id: 1,
@@ -88,7 +88,6 @@ export const content = {
         holderName: "Asalman Zamili",
         logo: gopayImage
       }
-    ],
-    qris: danaImage // Opsional
+    ]
   }
 };
