@@ -59,7 +59,7 @@ const Hero = () => {
 
       {/* --- 4. KONTEN TENGAH (Tema Senada dengan Couple) --- */}
       <motion.div 
-        className="relative z-20 text-center px-6"
+        className="relative z-40 text-center px-6"
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, delay: 1.2 }} // Delay agar teks muncul setelah tirai terbuka sedikit
