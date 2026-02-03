@@ -1,72 +1,106 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { content } from "../data/content";
 // import { FiMailOpen } from "react-icons/fi";
+import floralTop from "../assets/images/floral-top.png";
+import floralBottom from "../assets/images/floral-bottom.png";
+import bgPhoto from "../assets/images/ImageScreen.webp";
 
 const WelcomeScreen = ({ onOpen }) => {
+  const [guestName, setGuestName] = useState('');
+
+  useEffect(() => {
+    // LOGIKA: Mengambil nama dari URL (contoh: ?to=Budi)
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('to'); // Mengambil teks setelah 'to='
+    setGuestName(name ? name : 'Tamu Undangan');
+    
+    // if (name) {
+    //   setGuestName(name);
+    // } else {
+    //   setGuestName('Tamu Undangan'); // Default jika tidak ada nama di link
+    // }
+  }, []);
+
   return (
-    <motion.div
-      // Animasi saat layar ini menghilang (Slide ke atas)
-      exit={{ y: '-100vh' }}
-      transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] }}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-900 text-white"
-    >
-      {/* Background Image dengan Overlay */}
-      <div 
-        className="absolute inset-0 z-0 opacity-60 bg-cover bg-center"
-        style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')` 
-        }}
+    // Container Utama: Fixed menutup seluruh layar
+    <div className="fixed inset-0 z-50 bg-[#fdfbf7] flex flex-col items-center justify-center overflow-hidden">
+      
+      {/* --- 1. BACKGROUND FULL PAGE --- */}
+      {/* Kita gunakan 'absolute inset-0' agar nempel ke semua sisi */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={bgPhoto} 
+          alt="Background" 
+          // object-cover: Memaksa gambar memenuhi area tanpa gepeng (terpotong sedikit jika rasio beda)
+          // w-full h-full: Lebar dan tinggi 100%
+          className="w-full h-full object-cover opacity-77 grayscale" 
+        />
+        {/* Layer tambahan agar teks tetap terbaca jelas (overlay putih tipis) */}
+        <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px]"></div>
+      </div>
+
+      {/* --- 2. ORNAMEN BUNGA (RESPONSIF DINAMIS) --- */}
+      {/* Penjelasan Ukuran Responsif (Tailwind):
+         - w-32       : Ukuran dasar untuk HP (kecil)
+         - md:w-56    : Ukuran untuk Tablet/iPad (sedang)
+         - lg:w-80    : Ukuran untuk Laptop/PC (besar)
+      */}
+      
+      {/* Bunga Kiri Atas */}
+      <motion.img 
+        initial={{ opacity: 0, x: -50, y: -50 }}
+        animate={{ opacity: 0.8, x: 0, y: 0 }}
+        transition={{ duration: 1.5 }}
+        src={floralTop} 
+        className="absolute top-0 right-0 w-45 md:w-116 lg:w-90 pointer-events-none z-10" 
+        alt="floral-top" 
       />
       
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black/80 z-0" />
+      {/* Bunga Kanan Bawah */}
+      <motion.img 
+        initial={{ opacity: 0, x: 50, y: 50 }}
+        animate={{ opacity: 0.8, x: 0, y: 0 }}
+        transition={{ duration: 1.5 }}
+        src={floralBottom} 
+        className="absolute bottom-0 left-0 w-72 md:w-126 lg:w-100 pointer-events-none z-10" 
+        alt="floral-bottom" 
+      />
 
-      {/* Konten Utama */}
-      <div className="relative z-10 text-center px-6">
-        <motion.p 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-sm tracking-[0.4em] uppercase mb-4"
-        >
-          You are invited to
-        </motion.p>
-        
-        <motion.h2 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-4xl md:text-6xl font-serif mb-2"
-        >
+      {/* --- 3. KONTEN UTAMA --- */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+        className="relative z-20 w-full px-4 flex flex-col items-center"
+      >
+        <p className="font-serif text-slate-600 tracking-[0.2em] text-[10px] md:text-sm uppercase mb-2 md:mb-4">
           The Wedding of
-        </motion.h2>
+        </p>
+        
+        {/* Font Judul Responsif */}
+        <h1 className="font-['Great_Vibes'] text-5xl md:text-7xl lg:text-9xl text-amber-700 mb-6 md:mb-10 drop-shadow-sm">
+          Romeo & Juliet
+        </h1>
 
-        <motion.h1 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="text-6xl md:text-8xl font-serif mb-12 italic text-amber-200"
-        >
-          {content.couple.groom.name} & {content.couple.bride.name}
-        </motion.h1>
+        {/* Kotak Nama Tamu */}
+        <div className="bg-white/70 backdrop-blur-md border border-amber-200/60 p-6 md:p-10 rounded-3xl shadow-xl mb-8 w-11/12 max-w-md">
+          <p className="text-slate-500 text-xs md:text-sm mb-3 font-serif italic">
+            Kepada Yth. Bapak/Ibu/Saudara/i
+          </p>
+          <div className="text-lg md:text-2xl font-bold text-slate-800 capitalize font-serif leading-snug break-words">
+            {guestName}
+          </div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
+        <button 
+          onClick={onOpen}
+          className="group relative px-8 py-3 md:px-10 md:py-4 bg-amber-700 text-white rounded-full text-xs md:text-sm tracking-[0.2em] font-bold uppercase transition-all hover:bg-amber-800 hover:shadow-2xl hover:-translate-y-1 active:scale-95 shadow-amber-900/20 shadow-lg"
         >
-          <button
-            onClick={onOpen}
-            className="flex items-center gap-3 mx-auto bg-amber-200 text-slate-900 px-8 py-4 rounded-full font-bold tracking-widest hover:bg-white transition-all shadow-xl active:scale-95"
-          >
-            {/* <FiMailOpen className="text-xl" />
-            BUKA UNDANGAN */}
-            <button onClick={onOpen} className="...">
-              <span>💌</span> BUKA UNDANGAN
-            </button>
-          </button>
-        </motion.div>
-      </div>
-    </motion.div>
+          Buka Undangan
+        </button>
+      </motion.div>
+    </div>
   );
 };
 
